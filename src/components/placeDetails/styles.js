@@ -22,7 +22,4 @@ export default makeStyles(() => ({
     chipsContainer: {
         display: 'flex', alignItems: 'center',flexWrap: 'wrap'
     },
-    rating: {
-
-    }
 }));
