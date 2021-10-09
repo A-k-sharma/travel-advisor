@@ -6,6 +6,8 @@ import Header from "./components/header/index.jsx";
 import List from "./components/list/index.jsx";
 import Map from "./components/map/index.jsx";
 
+import './style.css'
+
 const App = () => {
     const [places, setPlaces] = useState([]);
     const [coordinates, setCoordinates] = useState({});
@@ -14,14 +16,8 @@ const App = () => {
     const [childClicked, setChildClicked] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [type, setType] = useState('restaurants');
-    const [rating, setRating] = useState('');
+    const [rating, setRating] = useState('0');
     const [filteredPlaces, setFilteredPlaces] = useState([]);
-
-    // useEffect(() => {
-    //     const filtered = places.filter((place) => Number(place.rating) > rating);
-    //
-    //     setFilteredPlaces(filtered);
-    // }, [rating]);
 
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}})=>{
@@ -33,7 +29,7 @@ const App = () => {
         setTimeout(()=>getPlacesData(type, bounds?.sw, bounds?.ne)
             .then((data)=>{
                setPlaces(data);
-            }),3000)
+            }),5000)
     }, [bounds, coordinates, type, rating]);
 
     const onLoad = (autoC) => setAutocomplete(autoC);
@@ -49,8 +45,8 @@ const App = () => {
         <>
             <CssBaseline/>
             <Header onPlaceChanged={onPlaceChanged} onLoad={onLoad}/>
-            <Grid container spacing={3} style={{width: '100%'}}>
-                <Grid item xs={12} md={6}>
+            <Grid container spacing={3} style={{width: '100%', padding: '0 30px', paddingTop: '20px'}}>
+                <Grid item xs={12} md={4}>
                     <List
                         isLoading={isLoading}
                         childClicked={childClicked}
@@ -61,7 +57,7 @@ const App = () => {
                         setRating={setRating}
                     />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={8}>
                     <Map
                         setCoordinates={setCoordinates}
                         setBounds={setBounds}

@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import {constData} from './const';
+
 
 
 export const getPlacesData = async (type,sw, ne)=>{
@@ -14,12 +16,18 @@ export const getPlacesData = async (type,sw, ne)=>{
             },
             headers: {
                 'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
-                'x-rapidapi-key': 'a221e1be42msh0851618bae5d3c5p1edfeejsnf605eab19577'
+                'x-rapidapi-key': process.env.REACT_APP_RAPID_API_TRAVEL_API_KEY
             }
         });
-        return data;
+        if(data){
+            return data;
+        }
+        else{
+            return constData.data;
+        }
     }
     catch (e) {
         console.log(e)
+        return constData.data;
     }
 }
